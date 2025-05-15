@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationSender {
-    private final NotificationService service;
+    private NotificationService service;
 
-    // Автоматическое внедрение через конструктор
-    @Autowired
+
+   // @Autowired
     public NotificationSender(NotificationService service) {
         this.service = service;
     }
 
-    public void notifyUser(String message) {
+    //  @Autowired
+    public void setNotificationService(NotificationService service) {
+        this.service = service;
+    }
+
+    public void send(String message) {
         service.send(message);
     }
 
-    // Внедрение через сеттер
-  /*  @Autowired
-    public void setSmsService(SmsService smsService) {
-        this.service = smsService;
-    }*/
 }
