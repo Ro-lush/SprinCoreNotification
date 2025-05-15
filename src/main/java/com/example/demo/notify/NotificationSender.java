@@ -1,26 +1,38 @@
 package com.example.demo.notify;
 
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-@Setter
-@Service
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class NotificationSender {
-    private NotificationService service;
+    private final NotificationService emailService;
+    private final NotificationService smsService;
+    private NotificationService currentService;
 
 
    // @Autowired
-    public NotificationSender(NotificationService service) {
-        this.service = service;
+    public NotificationSender(
+            @Qualifier("email") NotificationService emailService,
+            @Qualifier("sms") NotificationService smsService) {
+        this.emailService = emailService;
+        this.smsService = smsService;
+        this.currentService = emailService;
     }
 
-    //  @Autowired
- /*   public void setNotificationService(NotificationService service) {
-        this.service = service;
-    }*/
+    public void setNotificationService(String name) {
+        if ("email".equalsIgnoreCase(name)) {
+            this.currentService = emailService;
+        } else if ("sms".equalsIgnoreCase(name)) {
+            this.currentService = smsService;
+        } else {
+            throw new IllegalArgumentException("Неизвестный тип: " + name);
+        }
+    }
 
     public void send(String message) {
-        service.send(message);
+        currentService.send(message);
     }
 
 }
