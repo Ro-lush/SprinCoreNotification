@@ -1,8 +1,9 @@
 package com.example.demo.notify;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+@Setter
 @Service
 public class NotificationSender {
     private NotificationService service;
@@ -14,9 +15,9 @@ public class NotificationSender {
     }
 
     //  @Autowired
-    public void setNotificationService(NotificationService service) {
+ /*   public void setNotificationService(NotificationService service) {
         this.service = service;
-    }
+    }*/
 
     public void send(String message) {
         service.send(message);

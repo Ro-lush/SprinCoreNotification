@@ -16,7 +16,7 @@ public class DemoSpringCore {
 
     NotificationSender sender = new NotificationSender(new EmailService());
     sender.send("Проверка Email");
-    sender.setNotificationService(new SmsService());
+    sender.setService(new SmsService());
     sender.send("Проверка SMS");
 
     }
